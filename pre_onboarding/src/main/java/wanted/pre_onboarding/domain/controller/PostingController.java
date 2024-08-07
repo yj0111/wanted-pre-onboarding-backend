@@ -32,4 +32,12 @@ public class PostingController {
         return ResponseResult.successResponse;
     }
 
+    // 3. 채용공고 삭제
+    @DeleteMapping("/{postingId}")
+    public ResponseResult deletePosting(@PathVariable Long postingId) {
+        log.info("PostingController_deletePosting -> 공고 삭제 시작");
+        postingService.deletePosting(postingId);
+        return ResponseResult.successResponse;
+    }
+
 }

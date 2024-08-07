@@ -12,6 +12,7 @@ public interface PostingService {
     void updatePosting(Long postingId, Long companyId, UpdatePostRequestDto updatePostRequestDto);
 
     // 3. 채용공고를 삭제합니다.
+    void deletePosting(long postingId);
 
     // 4-1. 채용공고 목록을 가져옵니다.
 

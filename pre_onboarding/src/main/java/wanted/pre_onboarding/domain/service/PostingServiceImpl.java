@@ -50,5 +50,11 @@ public class PostingServiceImpl implements PostingService {
         postingRepository.save(posting);
     }
 
+    @Override
+    @Transactional
+    public void deletePosting(long postingId) {
+        log.info("PostingServiceImpl_deletePosting -> 공고 삭제 시도");
+        postingRepository.deleteById(postingId);
+    }
 
 }
