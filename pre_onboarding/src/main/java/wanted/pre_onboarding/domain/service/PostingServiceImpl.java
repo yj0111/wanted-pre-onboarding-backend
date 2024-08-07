@@ -87,6 +87,27 @@ public class PostingServiceImpl implements PostingService {
                 .collect(Collectors.toList());
     }
 
+    // 4-2. 채용공고 검색 기능 구현
+    @Override
+    public List<GetAllPostingResponseDto> searchPostings(String keyword) {
+        log.info("PostingServiceImpl_searchPostings -> 채용 공고 검색 기능 시도");
+
+        List<Posting> postings = postingRepository.searchPostings(keyword);
+
+        return postings.stream()
+                .map(posting -> new GetAllPostingResponseDto(
+                        posting.getPostingId(),
+                        posting.getCompany().getCompanyName(),
+                        posting.getPostingNation(),
+                        posting.getPostingRegion(),
+                        posting.getPostingPosition(),
+                        posting.getPostingBonus(),
+                        posting.getPostingSkills()
+                ))
+                .collect(Collectors.toList());
+    }
+
+    // 5. 채용 상세 페이지를 가져옵니다.
     @Override
     public GetOnePostingResponseDto getPosting(Long postingId) {
         log.info("PostingServiceImpl_getOnePosting -> 공고 상세 조회 시도");

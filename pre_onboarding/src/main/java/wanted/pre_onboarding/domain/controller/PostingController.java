@@ -45,12 +45,20 @@ public class PostingController {
         return ResponseResult.successResponse;
     }
 
-    //4-1. 채용공고 목록을 가져옵니다.
+    // 4-1. 채용공고 목록을 가져옵니다.
     @GetMapping("")
     public ListResponseResult<GetAllPostingResponseDto> getAllPostings() {
         log.info("PostingController_getAllPostings -> 모든 공고 조회 시작");
         List<GetAllPostingResponseDto> postings = postingService.getAllPostings();
         return new ListResponseResult<>(postings);
+    }
+
+    // 4-2. 채용공고 검색 기능 구현
+    @GetMapping("/search") //
+    public ResponseResult searchPostings(@RequestParam("keyword") String keyword) {
+        log.info("PostingController_searchPostings -> 검색어로 조회 시작 / 검색어 : {}", keyword);
+        List<GetAllPostingResponseDto> result = postingService.searchPostings(keyword);
+        return new SingleResponseResult<>(result);
     }
 
     // 5. 채용 상세 페이지를 가져옵니다.

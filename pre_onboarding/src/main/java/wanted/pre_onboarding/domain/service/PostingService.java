@@ -22,6 +22,7 @@ public interface PostingService {
     List<GetAllPostingResponseDto> getAllPostings();
 
     // 4-2. 채용공고 검색 기능 구현
+    List<GetAllPostingResponseDto> searchPostings(String keyword);
 
     // 5. 채용 상세 페이지를 가져옵니다.
     GetOnePostingResponseDto getPosting(Long postingId);
