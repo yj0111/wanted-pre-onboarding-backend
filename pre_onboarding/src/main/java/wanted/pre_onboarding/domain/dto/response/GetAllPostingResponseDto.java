@@ -15,5 +15,4 @@ public class GetAllPostingResponseDto {
     private String postingPosition; // 포지션
     private String postingBonus; // 보너스
     private String postingSkills; // 스킬
-    private String postingDetail;
 }

@@ -79,8 +79,7 @@ public class PostingServiceImpl implements PostingService {
                         posting.getPostingRegion(),
                         posting.getPostingPosition(),
                         posting.getPostingBonus(),
-                        posting.getPostingSkills(),
-                        posting.getPostingDetail()
+                        posting.getPostingSkills()
                 ))
                 .collect(Collectors.toList());
     }
