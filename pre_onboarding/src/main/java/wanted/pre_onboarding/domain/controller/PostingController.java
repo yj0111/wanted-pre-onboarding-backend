@@ -9,6 +9,7 @@ import wanted.pre_onboarding.domain.dto.response.GetAllPostingResponseDto;
 import wanted.pre_onboarding.domain.service.PostingService;
 import wanted.pre_onboarding.global.response.ListResponseResult;
 import wanted.pre_onboarding.global.response.ResponseResult;
+import wanted.pre_onboarding.global.response.SingleResponseResult;
 
 import java.util.List;
 
@@ -50,5 +51,12 @@ public class PostingController {
         log.info("PostingController_getAllPostings -> 모든 공고 조회 시작");
         List<GetAllPostingResponseDto> postings = postingService.getAllPostings();
         return new ListResponseResult<>(postings);
+    }
+
+    // 5. 채용 상세 페이지를 가져옵니다.
+    @GetMapping("{postingId}")
+    public ResponseResult getPosting(@PathVariable Long postingId){
+        log.info("PostingController_getPostings -> 공고 상세 조회 시작");
+        return new SingleResponseResult<>(postingService.getPosting(postingId));
     }
 }

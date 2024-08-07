@@ -7,11 +7,14 @@ import org.springframework.stereotype.Service;
 import wanted.pre_onboarding.domain.dto.request.RegistPostRequestDto;
 import wanted.pre_onboarding.domain.dto.request.UpdatePostRequestDto;
 import wanted.pre_onboarding.domain.dto.response.GetAllPostingResponseDto;
+import wanted.pre_onboarding.domain.dto.response.GetOnePostingResponseDto;
 import wanted.pre_onboarding.domain.entity.Company;
 import wanted.pre_onboarding.domain.entity.Posting;
 import wanted.pre_onboarding.domain.repository.CompanyRepository;
 import wanted.pre_onboarding.domain.repository.PostingRepository;
+import wanted.pre_onboarding.global.response.SingleResponseResult;
 
+import java.rmi.ServerException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -83,4 +86,25 @@ public class PostingServiceImpl implements PostingService {
                 ))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public GetOnePostingResponseDto getPosting(Long postingId) {
+        log.info("PostingServiceImpl_getOnePosting -> 공고 상세 조회 시도");
+
+        // 공고 ID로 공고 조회
+        Posting posting = postingRepository.findById(postingId)
+                .orElseThrow(() -> new RuntimeException("공고를 찾을 수 없습니다."));
+
+        return new GetOnePostingResponseDto(
+                posting.getPostingId(),
+                posting.getCompany().getCompanyName(),
+                posting.getPostingNation(),
+                posting.getPostingRegion(),
+                posting.getPostingPosition(),
+                posting.getPostingBonus(),
+                posting.getPostingSkills(),
+                posting.getPostingDetail()
+        );
+    }
+
 }
