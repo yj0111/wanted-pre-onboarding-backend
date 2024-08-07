@@ -27,6 +27,20 @@ public class ExceptionController {
         return ResponseResult.exceptionResponse(ExceptionCode.NOT_EXIST_POSTING_EXCEPTION, err.getMessage());
     }
 
+    @ExceptionHandler(NotExistMemberException.class)
+    public ResponseResult NotExistMemberException(NotExistMemberException err) {
+        log.info("Error : {}", err.getClass());
+        log.info("Error Message : {}", err.getMessage());
+        return ResponseResult.exceptionResponse(ExceptionCode.NOT_EXIST_MEMBER_EXCEPTION, err.getMessage());
+    }
+
+    @ExceptionHandler(alreadyApplyException.class)
+    public ResponseResult alreadyApplyException(alreadyApplyException err) {
+        log.info("Error : {}", err.getClass());
+        log.info("Error Message : {}", err.getMessage());
+        return ResponseResult.exceptionResponse(ExceptionCode.ALREADY_APPLY_EXCEPTION, err.getMessage());
+    }
+
     @ExceptionHandler(ServerException.class)
     public ResponseResult ServerException(ServerException err) {
         log.info("Error : {}", err.getClass());
