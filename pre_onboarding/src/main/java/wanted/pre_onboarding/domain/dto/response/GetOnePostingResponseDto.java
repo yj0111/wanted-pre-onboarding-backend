@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,4 +18,5 @@ public class GetOnePostingResponseDto {
     private String postingBonus; // 보너스
     private String postingSkills; // 스킬
     private String postingDetail; // 채용 내용
+    private List<Long> otherPostingList; // 회사가 올린 다른 채용공고 ID
 }

@@ -95,6 +95,16 @@ public class PostingServiceImpl implements PostingService {
         Posting posting = postingRepository.findById(postingId)
                 .orElseThrow(() -> new RuntimeException("공고를 찾을 수 없습니다."));
 
+        // 회사가 올린 다른 채용 공고 ID 리스트 찾기
+        Long companyId = posting.getCompany().getCompanyId();
+
+        List<Long> otherPostingList = postingRepository.findByCompany_CompanyId(companyId).stream()
+                .filter(p -> !p.getPostingId().equals(postingId)) //현재 보고 있는 공고는 제외하기
+                .map(Posting::getPostingId)
+                .collect(Collectors.toList());
+
+        log.info("회사가 올린 다른 채용 공고" + otherPostingList);
+
         return new GetOnePostingResponseDto(
                 posting.getPostingId(),
                 posting.getCompany().getCompanyName(),
@@ -103,8 +113,8 @@ public class PostingServiceImpl implements PostingService {
                 posting.getPostingPosition(),
                 posting.getPostingBonus(),
                 posting.getPostingSkills(),
-                posting.getPostingDetail()
+                posting.getPostingDetail(),
+                otherPostingList
         );
     }
-
 }
