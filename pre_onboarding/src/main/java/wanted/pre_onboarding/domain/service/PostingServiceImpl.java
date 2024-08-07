@@ -12,9 +12,9 @@ import wanted.pre_onboarding.domain.entity.Company;
 import wanted.pre_onboarding.domain.entity.Posting;
 import wanted.pre_onboarding.domain.repository.CompanyRepository;
 import wanted.pre_onboarding.domain.repository.PostingRepository;
-import wanted.pre_onboarding.global.response.SingleResponseResult;
+import wanted.pre_onboarding.global.exception.NotExistCompanyException;
+import wanted.pre_onboarding.global.exception.NotExistPostingException;
 
-import java.rmi.ServerException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,7 +34,7 @@ public class PostingServiceImpl implements PostingService {
 
         // 회사 ID 조회
         Company company = companyRepository.findById(registPostRequestDto.getCompanyId())
-                .orElseThrow(() -> new RuntimeException("회사를 찾을 수 없습니다."));
+                .orElseThrow(NotExistCompanyException::new);
 
         postingRepository.save(registPostRequestDto.toPostingEntity(company));
     }
@@ -47,11 +47,11 @@ public class PostingServiceImpl implements PostingService {
 
         // 회사 ID 조회
         Company company = companyRepository.findById(companyId)
-                .orElseThrow(() -> new RuntimeException("회사를 찾을 수 없습니다."));
+                .orElseThrow(NotExistCompanyException::new);
 
         // 공고 ID로 공고 조회
         Posting posting = postingRepository.findById(postingId)
-                .orElseThrow(() -> new RuntimeException("공고를 찾을 수 없습니다."));
+                .orElseThrow(NotExistPostingException::new);
 
         log.info("UpdatePostRequestDto: {}", updatePostRequestDto);
 
@@ -114,7 +114,7 @@ public class PostingServiceImpl implements PostingService {
 
         // 공고 ID로 공고 조회
         Posting posting = postingRepository.findById(postingId)
-                .orElseThrow(() -> new RuntimeException("공고를 찾을 수 없습니다."));
+                .orElseThrow(NotExistPostingException::new);
 
         // 회사가 올린 다른 채용 공고 ID 리스트 찾기
         Long companyId = posting.getCompany().getCompanyId();

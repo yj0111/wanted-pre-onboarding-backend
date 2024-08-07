@@ -37,7 +37,7 @@ public class ResponseResult {
                     .developerMessage("실패하였습니다.")
                     .timestamp(LocalDateTime.now()).build();
 
-    public static final ResponseResult exceptionResponse(ExceptionCode exceptionCode) {
+    public static final ResponseResult exceptionResponse(ExceptionCode exceptionCode, String message) {
         return ResponseResult.builder()
                 .statusCode(exceptionCode.getErrorCode())
                 .messages("에러발생 :(")
