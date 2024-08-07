@@ -26,6 +26,4 @@ public interface PostingService {
 
     // 5. 채용 상세 페이지를 가져옵니다.
     GetOnePostingResponseDto getPosting(Long postingId);
-
-    // 6. 사용자는 채용공고에 지원합니다.
 }
