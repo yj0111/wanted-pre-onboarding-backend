@@ -2,6 +2,9 @@ package wanted.pre_onboarding.domain.service;
 
 import wanted.pre_onboarding.domain.dto.request.RegistPostRequestDto;
 import wanted.pre_onboarding.domain.dto.request.UpdatePostRequestDto;
+import wanted.pre_onboarding.domain.dto.response.GetAllPostingResponseDto;
+
+import java.util.List;
 
 public interface PostingService {
 
@@ -15,6 +18,7 @@ public interface PostingService {
     void deletePosting(long postingId);
 
     // 4-1. 채용공고 목록을 가져옵니다.
+    List<GetAllPostingResponseDto> getAllPostings();
 
     // 4-2. 채용공고 검색 기능 구현
 

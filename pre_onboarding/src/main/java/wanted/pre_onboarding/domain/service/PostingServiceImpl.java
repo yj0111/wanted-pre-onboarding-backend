@@ -6,10 +6,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import wanted.pre_onboarding.domain.dto.request.RegistPostRequestDto;
 import wanted.pre_onboarding.domain.dto.request.UpdatePostRequestDto;
+import wanted.pre_onboarding.domain.dto.response.GetAllPostingResponseDto;
 import wanted.pre_onboarding.domain.entity.Company;
 import wanted.pre_onboarding.domain.entity.Posting;
 import wanted.pre_onboarding.domain.repository.CompanyRepository;
 import wanted.pre_onboarding.domain.repository.PostingRepository;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -19,6 +23,7 @@ public class PostingServiceImpl implements PostingService {
     private final PostingRepository postingRepository;
     private final CompanyRepository companyRepository;
 
+    // 1. 채용공고를 등록합니다.
     @Override
     @Transactional
     public void registPosting(RegistPostRequestDto registPostRequestDto) {
@@ -31,6 +36,7 @@ public class PostingServiceImpl implements PostingService {
         postingRepository.save(registPostRequestDto.toPostingEntity(company));
     }
 
+    // 2. 채용공고를 수정합니다.
     @Override
     @Transactional
     public void updatePosting(Long postingId, Long companyId, UpdatePostRequestDto updatePostRequestDto) {
@@ -50,6 +56,7 @@ public class PostingServiceImpl implements PostingService {
         postingRepository.save(posting);
     }
 
+    // 3. 채용공고를 삭제합니다.
     @Override
     @Transactional
     public void deletePosting(long postingId) {
@@ -57,4 +64,24 @@ public class PostingServiceImpl implements PostingService {
         postingRepository.deleteById(postingId);
     }
 
+    // 4-1. 채용공고 목록을 가져옵니다.
+    @Override
+    @Transactional
+    public List<GetAllPostingResponseDto> getAllPostings() {
+        log.info("PostingServiceImpl_getAllPostings -> 모든 공고 조회 시도");
+
+        List<Posting> postings = postingRepository.findAll();
+        return postings.stream()
+                .map(posting -> new GetAllPostingResponseDto(
+                        posting.getPostingId(),
+                        posting.getCompany().getCompanyName(),
+                        posting.getPostingNation(),
+                        posting.getPostingRegion(),
+                        posting.getPostingPosition(),
+                        posting.getPostingBonus(),
+                        posting.getPostingSkills(),
+                        posting.getPostingDetail()
+                ))
+                .collect(Collectors.toList());
+    }
 }

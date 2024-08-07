@@ -5,8 +5,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import wanted.pre_onboarding.domain.dto.request.RegistPostRequestDto;
 import wanted.pre_onboarding.domain.dto.request.UpdatePostRequestDto;
+import wanted.pre_onboarding.domain.dto.response.GetAllPostingResponseDto;
 import wanted.pre_onboarding.domain.service.PostingService;
+import wanted.pre_onboarding.global.response.ListResponseResult;
 import wanted.pre_onboarding.global.response.ResponseResult;
+
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -40,4 +44,11 @@ public class PostingController {
         return ResponseResult.successResponse;
     }
 
+    //4-1. 채용공고 목록을 가져옵니다.
+    @GetMapping("")
+    public ListResponseResult<GetAllPostingResponseDto> getAllPostings() {
+        log.info("PostingController_getAllPostings -> 모든 공고 조회 시작");
+        List<GetAllPostingResponseDto> postings = postingService.getAllPostings();
+        return new ListResponseResult<>(postings);
+    }
 }
