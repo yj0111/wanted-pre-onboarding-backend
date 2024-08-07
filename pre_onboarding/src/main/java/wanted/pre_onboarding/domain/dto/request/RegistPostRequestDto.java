@@ -1,14 +1,12 @@
 package wanted.pre_onboarding.domain.dto.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import wanted.pre_onboarding.domain.entity.Company;
 import wanted.pre_onboarding.domain.entity.Posting;
 
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class RegistPostRequestDto {
