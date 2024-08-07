@@ -1,6 +1,7 @@
 package wanted.pre_onboarding.domain.service;
 
 import wanted.pre_onboarding.domain.dto.request.RegistPostRequestDto;
+import wanted.pre_onboarding.domain.dto.request.UpdatePostRequestDto;
 
 public interface PostingService {
 
@@ -8,6 +9,7 @@ public interface PostingService {
     void registPosting(RegistPostRequestDto registPostRequestDto);
 
     // 2. 채용공고를 수정합니다.
+    void updatePosting(Long postingId, Long companyId, UpdatePostRequestDto updatePostRequestDto);
 
     // 3. 채용공고를 삭제합니다.
 

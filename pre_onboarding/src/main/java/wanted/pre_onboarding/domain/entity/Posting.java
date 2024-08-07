@@ -2,6 +2,7 @@ package wanted.pre_onboarding.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import wanted.pre_onboarding.domain.dto.request.UpdatePostRequestDto;
 
 @Entity
 @Getter
@@ -36,5 +37,14 @@ public class Posting {
 
     @Column(nullable = false)
     private String postingDetail; // 상세 공고
+
+    public void updatePosting(UpdatePostRequestDto dto) {
+        this.postingNation = dto.getPostingNation();
+        this.postingRegion = dto.getPostingRegion();
+        this.postingPosition = dto.getPostingPosition();
+        this.postingBonus = dto.getPostingBonus();
+        this.postingSkills = dto.getPostingSkills();
+        this.postingDetail = dto.getPostingDetail();
+    }
 
 }
