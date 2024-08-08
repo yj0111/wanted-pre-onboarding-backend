@@ -11,8 +11,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import wanted.pre_onboarding.domain.dto.request.RegistPostRequestDto;
 import wanted.pre_onboarding.domain.dto.request.UpdatePostRequestDto;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @AutoConfigureMockMvc
@@ -29,7 +28,7 @@ public class PostingControllerTest {
     @Test
     void registPosting() throws Exception {
         RegistPostRequestDto registPostRequestDto = RegistPostRequestDto.builder()
-                .postingId(14L)
+                .postingId(12L)
                 .companyId(1L)
                 .postingNation("한국")
                 .postingRegion("경기")
@@ -48,7 +47,7 @@ public class PostingControllerTest {
     @DisplayName(value = "공고 수정 테스트")
     @Test
     void updatePosting() throws Exception {
-        Long postingId = 1L;
+        Long postingId = 12L;
         Long companyId = 1L;
         UpdatePostRequestDto updatePostRequestDto = UpdatePostRequestDto.builder()
                 .postingNation("미국")
@@ -62,6 +61,16 @@ public class PostingControllerTest {
         mockMvc.perform(patch("/posting/update/{companyId}/{postingId}", companyId, postingId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(updatePostRequestDto)))
+                .andExpect(status().isOk());
+    }
+
+    @DisplayName(value = "공고 삭제 테스트")
+    @Test
+    void deletePosting() throws Exception {
+        Long postingId = 12L;
+
+        mockMvc.perform(delete("/posting/{postingId}", postingId)
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 }
