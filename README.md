@@ -3,6 +3,13 @@
 
 <br>
 
+## 기술 스택
+- Java 17.0
+- Spring boot 3.3.2
+- MySql 8.0
+<br>
+<br>
+
 ## Entity Diagram
 <img width="608" alt="스크린샷 2024-08-08 오전 2 01 58" src="https://github.com/user-attachments/assets/ccd6e607-998e-422b-ad63-94b2cd7b6741">
 
@@ -13,8 +20,24 @@
 <br>
 <br>
 
+## API 명세서
+
+| No | Title      | Method   | URL                     | 
+|----|------------|----------|-------------------------|
+| 1  | 채용공고 등록    | `POST`   | `/posting/regist`      | 
+| 2  | 채용공고 수정    | `PATCH`  | `/posting/update/{companyId}/{postingId}`      |   
+| 3  | 채용공고 삭제    | `DELETE` | `/posting/{postingId}`      |    
+| 4-1  | 채용공고 목록조회 | `GET`    | `/posting`             |    
+| 4-2  | 채용공고 검색기능    | `GET`    | `/posting/search?keyword={keyword}` |    
+| 5  | 채용공고 상세조회 | `GET`    | `/posting/{postingId}`      |     
+| 6  | 채용공고 지원    | `POST`   | `/apply/post`       | 
+
+<br>
+<br>
+
 ## 1️⃣ 채용공고 등록
 ### 요구사항
+
 채용공고를 등록합니다.
 
 `POST` /posting/regist 
@@ -42,6 +65,7 @@
     "timestamp": "2024-08-07T23:14:47.515206"
 }
 ```
+
 
 ## 2️⃣ 채용공고 수정
 ### 요구사항
@@ -87,7 +111,7 @@
 }
 ```
 
-## 4️⃣-1️⃣ 채용공고목록 조회
+## 4️⃣-1️⃣ 채용공고 목록조회
 ### 요구사항
 전체 채용공고를 리스트로 반환합니다
 
@@ -142,6 +166,7 @@
 
 #### Response
 ```
+/posting/search?keyword={Django}
 
 {
     "statusCode": 200,
@@ -215,7 +240,7 @@
     }
 }
 ```
-## 6️⃣ 사용자 채용공고 지원 (선택사항 및 가산점요소)
+## 6️⃣ 채용공고 지원 (선택사항 및 가산점요소)
 ### 요구사항
 - 사용자는 채용공고에 아래와 같이 지원합니다. (가점 요소이며, 필수 구현 요소가 아님)
 - 사용자는 1회만 지원 가능합니다.
